@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mangofactory</groupId>
 	<artifactId>swagger-springmvc</artifactId>
-	<version>0.2.5-stevearm-1</version>
+	<version>0.2.5-stevearm-2</version>
 	<name>Swagger SpringMVC</name>
 	<url>https://github.com/martypitt/swagger-springmvc</url>
 	<licenses>
