@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.common.collect.Maps;
 import com.mangofactory.swagger.springmvc.MvcApiResource;
+import com.mangofactory.swagger.springmvc.UriBuilder;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.core.Documentation;
 import com.wordnik.swagger.core.DocumentationEndPoint;
@@ -57,8 +58,9 @@ public class ControllerDocumentation extends Documentation {
 		String nameWithForwardSlash = (name.startsWith("/")) ? name : "/" + name;
 		String nameWithoutForwardSlash = (name.startsWith("/")) ? name.substring(1) : name;
 		
-		return getResourcePath().equals(nameWithoutForwardSlash) || 
-				getResourcePath().equals(nameWithForwardSlash); 
+		String resourcePath = UriBuilder.removeStars(getResourcePath());
+		return resourcePath.equals(nameWithoutForwardSlash) ||
+				resourcePath.equals(nameWithForwardSlash);
 	}
 	public DocumentationOperation getEndPoint(String requestUri, RequestMethod method) {
 		DocumentationEndPoint endPoint = getEndPoint(requestUri);

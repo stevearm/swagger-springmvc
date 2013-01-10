@@ -40,8 +40,9 @@ public class MvcApiResource {
 	{
 		// This is the end-point for retrieving documentation about the api
 		// Not the end point for the api itself
+		String listingPath = UriBuilder.removeStars(getListingPath());
 		String documentationUri = new UriBuilder(configuration.getDocumentationBasePath())
-									.append(getListingPath())
+									.append(listingPath)
 									.toString();
 		DocumentationEndPoint endPoint = new DocumentationEndPoint(documentationUri,getApiDescription());
 		return endPoint;

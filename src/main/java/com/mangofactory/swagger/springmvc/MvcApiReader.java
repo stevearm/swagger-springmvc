@@ -95,6 +95,7 @@ public class MvcApiReader {
 
 			for (String requestUri : mappingInfo.getPatternsCondition().getPatterns())
 			{
+				requestUri = UriBuilder.removeStars(requestUri);
 				DocumentationEndPoint endPoint = apiDocumentation.getEndPoint(requestUri);
 				appendOperationsToEndpoint(mappingInfo,handlerMethod,endPoint);
 				
