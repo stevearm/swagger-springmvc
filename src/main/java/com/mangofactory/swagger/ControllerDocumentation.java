@@ -23,7 +23,7 @@ public class ControllerDocumentation extends Documentation {
 
 	public ControllerDocumentation(String apiVersion, String swaggerVersion,
 			String basePath, MvcApiResource resource) {
-		super(apiVersion,swaggerVersion,basePath,resource.getControllerUri());
+		super(apiVersion,swaggerVersion,basePath,UriBuilder.removeStars(resource.getControllerUri()));
 		this.resource = resource;
 	}
 	private Class<?> getControllerClass()
