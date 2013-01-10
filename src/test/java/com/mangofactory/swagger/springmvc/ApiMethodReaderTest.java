@@ -44,11 +44,11 @@ public class ApiMethodReaderTest {
 		SampleClass instance = new SampleClass();
 		Method method = instance.getClass().getMethod("sampleMethod", String.class, String.class, String.class, String.class, String.class);
 		handlerMethod = new HandlerMethod(instance, method);
-		methodReader = new ApiMethodReader(handlerMethod);
+		methodReader = new ApiMethodReader(handlerMethod, new ModelReader());
 
 		Method method2 = instance.getClass().getMethod("sampleMethod2", Pet.class);
 		handlerMethod2 = new HandlerMethod(instance, method2);
-		methodReader2 = new ApiMethodReader(handlerMethod2);
+		methodReader2 = new ApiMethodReader(handlerMethod2, new ModelReader());
 	}
 	@Test
 	public void paramDataTypeDetectedCorrectly()
@@ -159,7 +159,7 @@ public class ApiMethodReaderTest {
 		SampleClass instance = new SampleClass();
 		Method method = instance.getClass().getMethod(methodName);
 		handlerMethod = new HandlerMethod(instance, method);
-		methodReader = new ApiMethodReader(handlerMethod);
+		methodReader = new ApiMethodReader(handlerMethod, new ModelReader());
 		return methodReader;
 
 	}

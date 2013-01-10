@@ -45,9 +45,12 @@ public class ApiMethodReader {
 	@Getter
 	private final List<DocumentationError> errors = Lists.newArrayList();
 	private final List<DocumentationParameter> parameters = Lists.newArrayList();
+	
+	private final ModelReader models;
 
-	public ApiMethodReader(HandlerMethod handlerMethod) {
+	public ApiMethodReader(HandlerMethod handlerMethod, ModelReader models) {
 		this.handlerMethod = handlerMethod;
+		this.models = models;
 		documentOperation();
 		documentParameters();
 		documentExceptions();
@@ -101,7 +104,7 @@ public class ApiMethodReader {
 			if (StringUtils.isEmpty(name))
 				name = methodParameter.getParameterName();
 			String paramType = getParameterType(methodParameter);
-			String dataType = methodParameter.getParameterType().getSimpleName();
+			String dataType = models.addAsModel(methodParameter.getParameterType());
 			RequestParam requestParam = methodParameter.getParameterAnnotation(RequestParam.class);
 			boolean isRequired = apiParam.required();
 			if (requestParam != null)
@@ -156,7 +159,7 @@ public class ApiMethodReader {
 	private void generateDefaultParameterDocumentation(
 			MethodParameter methodParameter) {
 		String name = selectBestParameterName(methodParameter);
-		String dataType = methodParameter.getParameterType().getSimpleName();
+		String dataType = models.addAsModel(methodParameter.getParameterType());
 		String paramType = getParameterType(methodParameter);
 		boolean isRequired = false;
 		RequestParam requestParam = methodParameter

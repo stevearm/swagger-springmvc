@@ -93,13 +93,15 @@ public class MvcApiReader {
 			
 			ControllerDocumentation apiDocumentation = getApiDocumentation(resource);
 
+			ModelReader models = new ModelReader();
 			for (String requestUri : mappingInfo.getPatternsCondition().getPatterns())
 			{
 				requestUri = UriBuilder.removeStars(requestUri);
 				DocumentationEndPoint endPoint = apiDocumentation.getEndPoint(requestUri);
-				appendOperationsToEndpoint(mappingInfo,handlerMethod,endPoint);
+				appendOperationsToEndpoint(mappingInfo,handlerMethod,endPoint, models);
 				
 			}
+			models.exportModelDocumentation(apiDocumentation);
 		}
 	}
 
@@ -114,8 +116,8 @@ public class MvcApiReader {
 	}
 
 	private void appendOperationsToEndpoint(
-			RequestMappingInfo mappingInfo, HandlerMethod handlerMethod, DocumentationEndPoint endPoint) {
-		ApiMethodReader methodDoc = new ApiMethodReader(handlerMethod);
+			RequestMappingInfo mappingInfo, HandlerMethod handlerMethod, DocumentationEndPoint endPoint, ModelReader models) {
+		ApiMethodReader methodDoc = new ApiMethodReader(handlerMethod, models);
 		
 		if (mappingInfo.getMethodsCondition().getMethods().isEmpty())
 		{
